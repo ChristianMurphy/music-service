@@ -3,8 +3,8 @@
 <project basedir="." default="targets" name="library">
 
 	<property environment="env"/>
-	<property name="build.home" value="${basedir}/build"/>
-	<property name="portNum" value="3030"/>
+	<property name="build.home"	value="${basedir}/build"/>
+	<property name="portNum"	value="3030"/>
 
 	<path id="compile.classpath">
 		<pathelement location="${build.home}"/>
@@ -27,8 +27,8 @@
 
 	<target name="execute.server">
 		<java classname="cst420.assign3.udserver.UDserver" fork="yes">
-			<classpath refid="compile.classpath"/>
-			<arg value="${portNum}"/>
+			<classpath	refid="compile.classpath"/>
+			<arg		value="${portNum}"/>
 		</java>
 	</target>
 
