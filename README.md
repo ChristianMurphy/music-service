@@ -15,5 +15,6 @@ ant execute.server
 ###Objective C Client
 Build using Gnu Step
 ```
-Coming Soon
+gnustepstart
+make
 ```
