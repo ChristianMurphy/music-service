@@ -4,30 +4,30 @@
 
     <property environment="env"/>
     <property name="build.home" value="${basedir}/build"/>
-    <property name="build.classes.home" value="${build.home}/classes"/>
+    <property name="portNum" value="3030"/>
+
+    <path id="compile.classpath">
+            <pathelement location="${build.home}"/>
+    </path>
 
     <target name="prepare">
         <mkdir dir="${build.home}"/>
-        <mkdir dir="${build.classes.home}"/>
     </target>
 
     <target name="clean">
         <delete dir="${build.home}" includeEmptyDirs="true"/>
-        <delete file="${build.war.home}/jaxws-${ant.project.name}.war"/>
-        <delete dir="${build.war.home}/build" includeEmptyDirs="true"/>
     </target>
 
     <target name="build.server" depends="prepare">
             <javac srcdir="./server"
                     destdir="${build.home}"
                     includeantruntime="false">
-                    <classpath refid="compile.classpath"/>
             </javac>
     </target>
 
     <target name="execute.server">
             <java classname="cst420.assign3.udserver.UDserver" fork="yes">
-                    <classpath refid="compile.classpath"/>
+		    <classpath refid="compile.classpath"/>
                     <arg value="${portNum}"/>
             </java>
     </target>
