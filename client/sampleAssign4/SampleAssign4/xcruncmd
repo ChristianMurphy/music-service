@@ -1,0 +1,10 @@
+#!/bin/bash
+# execute resulting app with ./MusicPlayer.app/Contents/MacOS/MusicPlayer
+echo "execute resulting app with> ./MusicPlayer.app/Contents/MacOS/MusicPlayer"
+echo "or just: open ./MusicPlayer.app"
+echo compiling
+mkdir -p ./MusicPlayer.app/Contents/MacOS/
+cp Info.plist ./MusicPlayer.app/Contents/
+# reset the debug messages text file.
+cp DebugMessageLog.txt ./MusicPlayer.app/
+xcrun gcc -x objective-c -framework Foundation -framework AppKit -o MusicPlayer.app/Contents/MacOS/MusicPlayer src/objc/AppDelegate.h src/objc/AppDelegate.m src/objc/GuiController.h src/objc/GuiController.m src/objc/NSOutlineViewTest.h src/objc/NSOutlineViewTest.m src/objc/main.m
