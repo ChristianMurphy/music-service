@@ -9,4 +9,4 @@ sudo apt-get update
 sudo apt-get upgrade
 
 #alias start gnustep
-echo "'alias gnustepstart='./usr/share/GNUstep/Makefiles/GNUstep.sh'">> /home/$USER/.bashrc
+echo "alias gnustepstart='. /usr/share/GNUstep/Makefiles/GNUstep.sh'\n" >> /home/$USER/.bashrc
