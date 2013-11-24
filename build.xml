@@ -2,34 +2,34 @@
 
 <project basedir="." default="targets" name="library">
 
-    <property environment="env"/>
-    <property name="build.home" value="${basedir}/build"/>
-    <property name="portNum" value="3030"/>
+	<property environment="env"/>
+	<property name="build.home" value="${basedir}/build"/>
+	<property name="portNum" value="3030"/>
 
-    <path id="compile.classpath">
-            <pathelement location="${build.home}"/>
-    </path>
+	<path id="compile.classpath">
+		<pathelement location="${build.home}"/>
+	</path>
 
-    <target name="prepare">
-        <mkdir dir="${build.home}"/>
-    </target>
+	<target name="prepare">
+		<mkdir dir="${build.home}"/>
+	</target>
 
-    <target name="clean">
-        <delete dir="${build.home}" includeEmptyDirs="true"/>
-    </target>
+	<target name="clean">
+		<delete dir="${build.home}" includeEmptyDirs="true"/>
+	</target>
 
-    <target name="build.server" depends="prepare">
-            <javac srcdir="./server"
-                    destdir="${build.home}"
-                    includeantruntime="false">
-            </javac>
-    </target>
+	<target name="build.server" depends="prepare">
+		<javac	srcdir="./server"
+				destdir="${build.home}"
+				includeantruntime="false">
+		</javac>
+	</target>
 
-    <target name="execute.server">
-            <java classname="cst420.assign3.udserver.UDserver" fork="yes">
-		    <classpath refid="compile.classpath"/>
-                    <arg value="${portNum}"/>
-            </java>
-    </target>
+	<target name="execute.server">
+		<java classname="cst420.assign3.udserver.UDserver" fork="yes">
+			<classpath refid="compile.classpath"/>
+			<arg value="${portNum}"/>
+		</java>
+	</target>
 
 </project>

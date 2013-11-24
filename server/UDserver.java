@@ -21,157 +21,157 @@ import javax.sound.sampled.*;
  * @version November 2013
  */
 public class UDserver extends Thread {
-  private Socket conn;
-  private int id;
+	private Socket conn;
+	private int id;
 
-  /**
-   * This takes in a socket and a coneection id
-   * @param sock socket to connect to
-   * @param id number of client that is connecting
-   */
-  public UDserver (Socket sock, int id) {
-    this.conn = sock;
-    this.id = id;
-  }
+	/**
+	 * This takes in a socket and a coneection id
+	 * @param sock socket to connect to
+	 * @param id number of client that is connecting
+	 */
+	public UDserver (Socket sock, int id) {
+		this.conn = sock;
+		this.id = id;
+	}
 
-  /**
-   * The run method of the thread that sends the file
-   */
-  public void run() {
-    try {
-      InputStream inSock    = conn.getInputStream();
-      OutputStream outSock  = conn.getOutputStream();
+	/**
+	 * The run method of the thread that sends the file
+	 */
+	public void run() {
+		try {
+			InputStream inSock    = conn.getInputStream();
+			OutputStream outSock  = conn.getOutputStream();
 
-      //get the type of operation
-      byte array[]          = new byte[4];
-      inSock.read(array, 0, 4);
-      int value             = ByteBuffer.wrap(array).getInt();
-      System.out.println(value);
+			//get the type of operation
+			byte array[]          = new byte[4];
+			inSock.read(array, 0, 4);
+			int value             = ByteBuffer.wrap(array).getInt();
+			System.out.println(value);
 
-      //get length of string
-      inSock.read(array, 0 , 4);
-      int x = ByteBuffer.wrap(array).getInt();
-      byte clientInput[]    = new byte[x];
+			//get length of string
+			inSock.read(array, 0 , 4);
+			int x = ByteBuffer.wrap(array).getInt();
+			byte clientInput[]    = new byte[x];
 
-      //Get the string that is the title
-      inSock.read(clientInput, 0, x);
-      String clientString   = new String(clientInput);
-      System.out.println(clientString);
+			//Get the string that is the title
+			inSock.read(clientInput, 0, x);
+			String clientString   = new String(clientInput);
+			System.out.println(clientString);
 
-     switch(value) {
-        //Sent file from Client to Server
-        case 2:
-          System.out.println("Upload");
+			switch(value) {
+				//Sent file from Client to Server
+				case 2:
+					System.out.println("Upload");
 
-          //location to store the file
-          FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/UDserver/" + clientString + ".wav");
+					//location to store the file
+					FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/UDserver/" + clientString + ".wav");
 
-          //stores  1024 bit section
-          byte bytesReceived[] = new byte[1024];
-          inSock.read(array);
+					//stores  1024 bit section
+					byte bytesReceived[] = new byte[1024];
+					inSock.read(array);
 
-          int totalBytes = ByteBuffer.wrap(array).getInt();
-          System.out.println(totalBytes);
+					int totalBytes = ByteBuffer.wrap(array).getInt();
+					System.out.println(totalBytes);
 
-          //write everything
-          for(int i = totalBytes; i > -1; i--) {
-            inSock.read(bytesReceived);
-            fos.write(bytesReceived);
-          }
+					//write everything
+					for(int i = totalBytes; i > -1; i--) {
+						inSock.read(bytesReceived);
+						fos.write(bytesReceived);
+					}
 
-          fos.flush();
-          fos.close();
+					fos.flush();
+					fos.close();
 
-          break;
+					break;
 
-        //Sent file from Server to Client
-        case 1:
+					//Sent file from Server to Client
+				case 1:
 
-          System.out.println("Download");
-          
-          //gets the file to sent to client
-          File song   = new File(System.getProperty("user.dir") + "/UDserver/" + clientString + ".wav");
-          
-          //gets the length of the song file
-          int length  = (int) song.length();
-          System.out.println(length);
+					System.out.println("Download");
 
-          //gets the number of sections to send
-          int buffnum = length / 1024;
-          System.out.println(buffnum);
-          byte buff[] = ByteBuffer.allocate(4).putInt(buffnum).array();
-          System.out.println(buff.length);
+					//gets the file to sent to client
+					File song   = new File(System.getProperty("user.dir") + "/UDserver/" + clientString + ".wav");
 
-          outSock.write(buff, 0, 4);
-          
-          buff                 = new byte[1024];
-          FileInputStream fis  = new FileInputStream(song);
+					//gets the length of the song file
+					int length  = (int) song.length();
+					System.out.println(length);
 
-          int numr = fis.read(buff);
+					//gets the number of sections to send
+					int buffnum = length / 1024;
+					System.out.println(buffnum);
+					byte buff[] = ByteBuffer.allocate(4).putInt(buffnum).array();
+					System.out.println(buff.length);
 
-          //write everything
-          while(numr > 0) {
-            outSock.write(buff);
-            numr = fis.read(buff);
-          }
+					outSock.write(buff, 0, 4);
 
-          fis.close();
-          
-          break;
+					buff                 = new byte[1024];
+					FileInputStream fis  = new FileInputStream(song);
 
-        default:
+					int numr = fis.read(buff);
 
-          break;
-     }
+					//write everything
+					while(numr > 0) {
+						outSock.write(buff);
+						numr = fis.read(buff);
+					}
 
-     //alert that client has disconnected
-     System.out.println("Client " + id + " closed");
-     
-     outSock.flush();
-     outSock.close();
-     inSock.close();
-     conn.close();
-  }
-  catch (IOException e) {
-    System.out.println("Can't get I/O for the connection.");
-    e.printStackTrace();
-  }
-}
+					fis.close();
 
-  /**
-   * Main method waits for clients to connect
-   * then creates a new socket and id for the client
-   */
-  public static void main (String args[]) {
-    Socket sock;
-    int id = 0;
+					break;
 
-    try {
-      if (args.length != 1) {
-        System.out.println("Usage: java cst420.socket.UDserver" + " [portNum]");
-        System.exit(0);
-      }
+				default:
 
-      int portNo = Integer.parseInt(args[0]);
+					break;
+			}
 
-      //if port number is too small default to 8888
-      if (portNo <= 1024) {
-          portNo = 8888;
-      }
+			//alert that client has disconnected
+			System.out.println("Client " + id + " closed");
 
-      ServerSocket serv = new ServerSocket(portNo);
+			outSock.flush();
+			outSock.close();
+			inSock.close();
+			conn.close();
+		}
+		catch (IOException e) {
+			System.out.println("Can't get I/O for the connection.");
+			e.printStackTrace();
+		}
+	}
 
-      //always listen for connections
-      while (true) {
-        System.out.println( "Echo server waiting for connects on port " + portNo );
-        sock = serv.accept();
-        System.out.println( "Echo server connected to client: " + id );
-        UDserver myServerThread = new UDserver(sock, id++);
-        myServerThread.start();
-      }
-    } 
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-  }
+	/**
+	 * Main method waits for clients to connect
+	 * then creates a new socket and id for the client
+	 */
+	public static void main (String args[]) {
+		Socket sock;
+		int id = 0;
+
+		try {
+			if (args.length != 1) {
+				System.out.println("Usage: java cst420.socket.UDserver" + " [portNum]");
+				System.exit(0);
+			}
+
+			int portNo = Integer.parseInt(args[0]);
+
+			//if port number is too small default to 8888
+			if (portNo <= 1024) {
+				portNo = 8888;
+			}
+
+			ServerSocket serv = new ServerSocket(portNo);
+
+			//always listen for connections
+			while (true) {
+				System.out.println( "Echo server waiting for connects on port " + portNo );
+				sock = serv.accept();
+				System.out.println( "Echo server connected to client: " + id );
+				UDserver myServerThread = new UDserver(sock, id++);
+				myServerThread.start();
+			}
+		} 
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
