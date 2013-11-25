@@ -13,14 +13,15 @@ import javax.sound.sampled.*;
  * @verison November 2013
  */
 public class SocketFunctions {
-	InputStream  inputSocket;
-    OutputStream outputSocket;
+	private InputStream  inputSocket;
+	private OutputStream outputSocket;
+	final private int byteWordSize = 1024;
 
-    /**
-     * Establishes a link to the hosts sockets
-     * @param inputSocket
-     * @param outputSocket
-     */
+	/**
+	 * Establishes a link to the hosts sockets
+	 * @param inputSocket
+	 * @param outputSocket
+	 */
 	public SocketFunctions (InputStream inputSocket, OutputStream outputSocket) {
 		this.inputSocket  = inputSocket;
 		this.outputSocket = outputSocket;
@@ -49,7 +50,7 @@ public class SocketFunctions {
 		byte array[] = new byte[4];
 
 		try {
-	    	inputSocket.read(array, 0, 4);
+			inputSocket.read(array, 0, 4);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,19 +87,42 @@ public class SocketFunctions {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return new String(stringBytes);
 	}
 
-	public void uploadFile () {
+	public void uploadFile (String filepath) {
+		File file   = new File(filepath);
+		byte[] fileBuffer = new byte[byteWordSize];
 
+		int length  = (int) file.length() / byteWordSize;
+		sendInteger(length);
+
+		try {
+			FileInputStream fileInput = new FileInputStream(file);
+
+			int fileState;
+			do {
+				fileState = fileInput.read(fileBuffer);
+				outputSocket.write(fileBuffer);
+				outputSocket.flush();
+			} while (fileState > 0);
+
+			fileInput.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void downloadFile (String path) {
 		
 	}
 
-	public void listFiles () {
+	public void sendFileList () {
 
+	}
+
+	public String[] receiveFileList () {
+		return null;
 	}
 }

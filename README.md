@@ -4,7 +4,7 @@ a Java server, Java Client and Objective C client able to upload and download so
 
 
 ###Setup
-installer scripts for linux distros apt package manager are included in /installer folder
+installer scripts for linux distros using apt package manager are included in /installer folder
 
 for Java, Ant and Tomcat
 
