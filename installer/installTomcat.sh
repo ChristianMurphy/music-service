@@ -2,29 +2,6 @@
 #move to home folder
 cd /home/$USER
 
-##uninstall everything
-#remove open jdk 6
-sudo apt-get remove openjdk-6-jdk
-sudo apt-get remove openjdk-6-jre
-sudo apt-get remove openjdk-6-java
-
-#remove open jdk 7
-sudo apt-get remove openjdk-7-jdk
-sudo apt-get remove openjdk-7-jre
-sudo apt-get remove openjdk-7-java
-
-#remove ant and tomcat
-sudo apt-get remove ant
-sudo apt-get remove tomcat7
-sudo apt-get remove tomcat6
-
-#remove emacs
-sudo apt-get remove emacs
-sudo apt-get remove vim
-
-#remove everything that is left over
-sudo apt-get autoremove
-
 ##install java, ant and tomcat
 sudo apt-get install openjdk-7-jdk
 sudo apt-get install ant

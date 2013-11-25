@@ -1,7 +1,28 @@
 Music Service
 =============
+a Java server, Java Client and Objective C client able to upload and download songs.
 
-a Java server and Objective C client able to upload and download songs.
+
+###Setup
+installer scripts for linux distros apt package manager are included in /installer folder
+
+for Java, Ant and Tomcat
+
+```
+sh installTomcat.sh
+```
+
+restart terminal
+
+```
+sh installTomcatPart2.sh
+```
+
+for GnuStep
+
+```
+sh installGnustep.sh
+```
 
 ###Java Web Service Server
 Uses JAX-WS to create a library for java client
