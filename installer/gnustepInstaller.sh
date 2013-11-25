@@ -1,8 +1,9 @@
 #install packages
 sudo apt-get install gobjc
 sudo apt-get install gnustep
-sudo apt-get install gnustep-make
 sudo apt-get install gnustep-common
+sudo apt-get install gnustep-devel
+sudo apt-get install gnustep-make
 
 #update packages
 sudo apt-get update

@@ -114,15 +114,21 @@ public class SocketFunctions {
 		}
 	}
 
-	public void downloadFile (String path) {
-		
-	}
+	public void downloadFile (String filepath) {
+		byte fileBuffer[] = new byte[byteWordSize];
+		int length = recieveInteger();
 
-	public void sendFileList () {
+		try {
+			FileOutputStream fileOutput = new FileOutputStream(filepath);
+			for(int i = length; i > -1; i--) {
+				inputSocket.read(fileBuffer);
+				fileOutput.write(fileBuffer);
+			}
 
-	}
-
-	public String[] receiveFileList () {
-		return null;
+			fos.flush();
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
