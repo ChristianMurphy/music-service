@@ -1,35 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+@author Christian Murphy
+@version November 2013
 
+-->
 <project basedir="." default="targets" name="library">
+    <!--enviornment variables-->
+    <property environment="env"/>
+    <property name="java.home" value="${env.JAVA_HOME}"/>
+    <property name="jaxws.home" value="${env.JAXWS_HOME}/lib"/>
 
-	<property environment="env"/>
-	<property name="build.home"	value="${basedir}/build"/>
-	<property name="portNum"	value="3030"/>
+    <!--build pathes-->
+    <property name="build.home" value="${basedir}/build"/>
+    <property name="build.war.home" value="${build.home}/war"/>
+    <property name="build.classes.home" value="${build.home}/classes"/>
 
-	<path id="compile.classpath">
-		<pathelement location="${build.home}"/>
-	</path>
+    <!--configuration-->
+    <property name="portNum" value="3030"/>
+    <property name="WSHost" value="localhost"/>
 
-	<target name="prepare">
-		<mkdir dir="${build.home}"/>
-	</target>
+    <path id="jaxws.classpath">
+        <pathelement location="${build.classes.home}"/>
+        <pathelement location="./lib/MusicLibraryGui.jar" />
+        <fileset dir="${jaxws.home}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
 
-	<target name="clean">
-		<delete dir="${build.home}" includeEmptyDirs="true"/>
-	</target>
+    <path id="compile.classpath">
+            <pathelement location="${build.home}"/>
+            <pathelement path="./lib/MusicLibraryGui.jar"/>
+    </path>
 
-	<target name="build.server" depends="prepare">
-		<javac	srcdir="./server"
-				destdir="${build.home}"
-				includeantruntime="false">
-		</javac>
-	</target>
+    <taskdef name="annotationProcessing"
+             classname="com.sun.tools.ws.ant.AnnotationProcessingTask">
+        <classpath refid="jaxws.classpath"/>
+    </taskdef>
 
-	<target name="execute.server">
-		<java classname="cst420.assign3.udserver.UDserver" fork="yes">
-			<classpath	refid="compile.classpath"/>
-			<arg		value="${portNum}"/>
-		</java>
-	</target>
+    <taskdef name="wsimport"
+             classname="com.sun.tools.ws.ant.WsImport">
+        <classpath refid="jaxws.classpath"/>
+    </taskdef>
+
+    <target name="prepare">
+        <mkdir dir="${build.home}"/>
+        <mkdir dir="${build.classes.home}"/>
+        <mkdir dir="${build.war.home}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.home}" includeEmptyDirs="true"/>
+        <delete file="${build.war.home}/jaxws-${ant.project.name}.war"/>
+        <delete dir="${build.war.home}/build" includeEmptyDirs="true"/>
+    </target>
+
+    <target name="build.ud.server" depends="prepare">
+            <javac srcdir="./src/upload-download-server"
+                    destdir="${build.home}"
+                    includeantruntime="false">
+                    <classpath refid="compile.classpath"/>
+            </javac>
+    </target>
+
+    <target name="execute.ud.server">
+            <java classname="cst420.assign3.udserver.UDserver" fork="yes">
+                    <classpath refid="compile.classpath"/>
+                    <arg value="${portNum}"/>
+            </java>
+    </target>
+
+
+    <target name="server" depends="prepare">
+        <antcall target="clean"/>
+        <antcall target="build.server"/>
+        <antcall target="create.war"/>
+        <antcall target="deploy.tomcat"/>
+    </target>
+
+    <target name="build.server" depends="prepare">
+        <annotationProcessing
+                fork="true"
+                debug="true"
+                verbose="${verbose}"
+                destdir="${build.classes.home}"
+                srcdir="${basedir}/src"
+                includes="web-service-server/**"
+                sourceDestDir="${build.classes.home}"
+                procOnly="false"
+                includeantruntime="false"
+                sourcepath="${basedir}/src">
+            <classpath>
+                <path refid="jaxws.classpath"/>
+                <pathelement location="${basedir}/src/web-service-sserver"/>
+            </classpath>
+        </annotationProcessing>
+        <!-- copy handlers descriptor file -->
+        <copy todir="${build.classes.home}">
+            <fileset dir="${basedir}/src">
+                <include name="web-service-server/**/*.xml"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="create.war">
+        <war warfile="${build.war.home}/jaxws-${ant.project.name}.war"
+             webxml="etc/web.xml">
+            <webinf dir="${basedir}/etc" includes="sun-jaxws.xml"/>
+            <zipfileset
+                    dir="${basedir}/etc"
+                    includes="*.wsdl, *.xsd"
+                    prefix="WEB-INF/wsdl"/>
+            <classes dir="${build.classes.home}"/>
+        </war>
+    </target>
+
+    <target name="deploy.tomcat">
+        <echo message="sudo cp ${build.war.home}/jaxws-${ant.project.name}.war ${env.CATALINA_HOME}/webapps"/>
+    </target>
+
+   <target name="generate.client" depends="prepare">
+     <echo message="${basedir}/catalog"/>
+     <wsimport
+        catalog="${basedir}/catalog/jax-ws-catalog.xml"
+        xendorsed="true"
+        debug="true"
+        verbose="${verbose}"
+        keep="true"
+        destdir="${build.classes.home}"
+        package="cst420.assign3.client.library"
+        wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/Library?wsdl">
+     </wsimport>
+     <wsimport
+        catalog="${basedir}/catalog/jax-ws-catalog.xml"
+        xendorsed="true"
+        debug="true"
+        verbose="${verbose}"
+        keep="true"
+        destdir="${build.classes.home}"
+        package="cst420.assign3.client.music"
+        wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/MusicDescription?wsdl">
+     </wsimport>
+     <wsimport
+        catalog="${basedir}/catalog/jax-ws-catalog.xml"
+        xendorsed="true"
+        debug="true"
+        verbose="${verbose}"
+        keep="true"
+        destdir="${build.classes.home}"
+        package="cst420.assign3.client.factory"
+        wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/LibraryFactory?wsdl">
+     </wsimport>
+   </target>
+
+    <target name="client" depends="generate.client">
+        <javac
+             fork="true"
+             srcdir="${basedir}/src/java-client"
+             includeantruntime="false"
+             destdir="${build.classes.home}">
+            <classpath refid="jaxws.classpath"/>
+        </javac>
+    </target>
+
+    <target name="execute.client">
+        <java fork="true" classname="cst420.assign3.client.MusicLibraryApp">
+            <classpath>
+                <path refid="jaxws.classpath"/>
+                <pathelement location="${build.classes.home}"/>
+                <pathelement location="${basedir}/etc"/>
+            </classpath>
+
+           <arg value="${WSHost}" />
+           <arg value="${portNum}" />
+        </java>
+    </target>
+
+    <target name="execute.reflect">
+        <java fork="true" classname="ReflectClass">
+            <classpath>
+                <path refid="jaxws.classpath"/>
+                <pathelement location="${build.classes.home}"/>
+                <pathelement location="${basedir}/etc"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="targets">
+        <echo message="jaxws.home: ${jaxws.home}"/>
+        <echo message="java.home: ${java.home}"/>
+        <echo message="server: Builds and deploy the service endpoint WAR"/>
+        <echo message="client: Builds the client"/>
+        <echo message="execute.client: Runs the client"/>
+        <echo message="execute.reflect: Runs ReflectClass to reflect classes"/>
+    </target>
 
 </project>

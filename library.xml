@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.7.0_25" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>TwinkelLittleStar</string>
+   <object class="cst420.assign1.MusicDescription">
+    <void property="album">
+     <string>Alone In Iz World</string>
+    </void>
+    <void property="artist">
+     <string></string>
+    </void>
+    <void property="title">
+     <string>TwinkelLittleStar</string>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>HanohanoCowboy</string>
+   <object class="cst420.assign1.MusicDescription">
+    <void property="album">
+     <string>Alone In Iz World</string>
+    </void>
+    <void property="artist">
+     <string></string>
+    </void>
+    <void property="title">
+     <string>HanohanoCowboy</string>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>ComeMonday</string>
+   <object class="cst420.assign1.MusicDescription">
+    <void property="album">
+     <string>All The Greatest Hits</string>
+    </void>
+    <void property="artist">
+     <string></string>
+    </void>
+    <void property="title">
+     <string>ComeMonday</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
