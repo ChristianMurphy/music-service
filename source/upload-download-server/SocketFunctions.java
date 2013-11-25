@@ -8,14 +8,14 @@ import java.nio.file.*;
 import javax.sound.sampled.*;
 
 /**
- * This abstracts the handling of sockets to send and recieve data
+ * This abstracts the handling of sockets to send and receive data
  * @author Christian Murphy
  * @verison November 2013
  */
 public class SocketFunctions {
-	private InputStream  inputSocket;
-	private OutputStream outputSocket;
-	final private int byteWordSize = 1024;
+	private 		InputStream  inputSocket;
+	private 		OutputStream outputSocket;
+	final private	int byteWordSize = 1024;
 
 	/**
 	 * Establishes a link to the hosts sockets
@@ -43,10 +43,10 @@ public class SocketFunctions {
 	}
 
 	/**
-	 * recieves a string
-	 * @return integer recieved
+	 * receives a string
+	 * @return integer received
 	 */
-	public int recieveInteger() {
+	public int receiveInteger() {
 		byte array[] = new byte[4];
 
 		try {
@@ -75,11 +75,11 @@ public class SocketFunctions {
 	}
 
 	/**
-	 * recieves a string
-	 * @return string value recieved
+	 * receives a string
+	 * @return string value received
 	 */
-	public String recieveString() {
-		int length = recieveInteger();
+	public String receiveString() {
+		int length = receiveInteger();
 		byte stringBytes[]    = new byte[length];
 
 		try {
@@ -91,7 +91,11 @@ public class SocketFunctions {
 		return new String(stringBytes);
 	}
 
-	public void uploadFile (String filepath) {
+	/**
+	 * Takes a file and sends it
+	 * @param path of file to sent
+	 */
+	public void sendFile (String filepath) {
 		File file   = new File(filepath);
 		byte[] fileBuffer = new byte[byteWordSize];
 
@@ -114,9 +118,12 @@ public class SocketFunctions {
 		}
 	}
 
-	public void downloadFile (String filepath) {
+	/**
+	 *
+	 */
+	public void receiveFile (String filepath) {
 		byte fileBuffer[] = new byte[byteWordSize];
-		int length = recieveInteger();
+		int length = receiveInteger();
 
 		try {
 			FileOutputStream fileOutput = new FileOutputStream(filepath);
@@ -125,8 +132,8 @@ public class SocketFunctions {
 				fileOutput.write(fileBuffer);
 			}
 
-			fos.flush();
-			fos.close();
+			fileOutput.flush();
+			fileOutput.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
