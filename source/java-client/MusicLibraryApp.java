@@ -323,48 +323,12 @@ public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandLi
 		try {
 			//connect to server
 			Socket sock = new Socket(hostname, port);
-			OutputStream os = sock.getOutputStream();
 			InputStream is = sock.getInputStream();
+			OutputStream os = sock.getOutputStream();
 
-			//sent instruction type
-			byte value[] = ByteBuffer.allocate(4).putInt(1).array();
-			os.write(value);
-			os.flush();
+			SocketFunctions socketFunctions = new SocketFunctions(is, os);
+			socketFunctions.receiveFile(System.getProperty("user.dir") + "/client-music/" + filename + ".wav");
 
-			//create filestream for file to be downloaded
-			FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/client-music/" + filename + ".wav");
-
-			//send length of string
-			byte bytesReceived[] = new byte[4];
-			byte bytesToSend[] = filename.getBytes();
-			int x = bytesToSend.length;
-			value = ByteBuffer.allocate(4).putInt(x).array();
-			os.write(value);
-			os.flush();
-
-			//sent name of file to download
-			System.out.println(filename);
-			os.write(bytesToSend, 0, x);
-
-			//get file size
-			is.read(bytesReceived, 0, 4);
-			int totalBytes = ByteBuffer.wrap(bytesReceived).getInt();
-			System.out.println(totalBytes);
-
-			bytesReceived = new byte[1024];
-
-			//get all the byte for the file
-			for(int i = totalBytes; i > -1; i--) {
-				is.read(bytesReceived);
-				fos.write(bytesReceived);
-			}
-
-			//Flush Streams
-			fos.flush();
-			os.flush();
-
-			//close streams
-			fos.close();
 			os.close();
 			is.close();
 			sock.close();
@@ -399,46 +363,10 @@ public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandLi
 			OutputStream os	= sock.getOutputStream();
 			InputStream is	= sock.getInputStream();
 
-			//send that this is upload
-			byte value[] = ByteBuffer.allocate(4).putInt(2).array();
-			os.write(value);
-			os.flush();
+			//send file
+			SocketFunctions socketFunctions = new SocketFunctions(is, os);
+			socketFunctions.sendFile( file.getAbsolutePath() );
 
-			//send number of bytes to send
-			byte bytesToSend[] = filename.getBytes();
-			System.out.println(file.getName());
-			int x = bytesToSend.length;
-			value = ByteBuffer.allocate(4).putInt(x).array();
-			os.write(value);
-			os.flush();
-
-			//Send filename
-			os.write(bytesToSend, 0, x);
-			os.flush();
-
-			int length = (int) file.length();
-			System.out.println(length);
-
-			int totalBytes = length / 1024;
-			System.out.println(totalBytes);
-			byte buff[] = ByteBuffer.allocate(4).putInt(totalBytes).array();
-			os.write(buff, 0, 4);
-			os.flush();
-
-			buff = new byte[1024];
-			FileInputStream fis = new FileInputStream(file);
-
-			int numr = fis.read(buff);
-
-			while(numr > 0) {
-				os.write(buff);
-				numr = fis.read(buff);
-			}
-
-			//flush stream
-			os.flush();
-
-			fis.close();
 			os.close();
 			is.close();
 		    sock.close();
