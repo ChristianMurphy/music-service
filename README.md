@@ -31,7 +31,7 @@ Uses JAX-WS to create a library for java client
 ant server
 ```
 
-Then deploy to tomcat
+Then deploy to tomcat. Tomcat is hosting to ```localhost:8080```
 
 
 ###Java Upload Download Server

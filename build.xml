@@ -2,7 +2,6 @@
 <!-- 
 @author Christian Murphy
 @version November 2013
-
 -->
 <project basedir="." default="targets" name="library">
     <!--enviornment variables-->
@@ -63,7 +62,7 @@
     </target>
 
     <target name="execute.ud.server">
-            <java classname="cst420.assign3.udserver.UDserver" fork="yes">
+            <java classname="cst420.assign3.udserver.UploadDownloadServer" fork="yes">
                     <classpath refid="compile.classpath"/>
                     <arg value="${portNum}"/>
             </java>
@@ -188,7 +187,7 @@
     <target name="targets">
         <echo message="jaxws.home: ${jaxws.home}"/>
         <echo message="java.home: ${java.home}"/>
-        <echo message="server: Builds and deploy the service endpoint WAR"/>
+        <echo message="server: Builds the service WAR"/>
         <echo message="client: Builds the client"/>
         <echo message="execute.client: Runs the client"/>
         <echo message="execute.reflect: Runs ReflectClass to reflect classes"/>

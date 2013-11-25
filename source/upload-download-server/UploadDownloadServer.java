@@ -20,7 +20,7 @@ import javax.sound.sampled.*;
  * @author Christian Murphy
  * @version November 2013
  */
-public class UDserver extends Thread {
+public class UploadDownloadServer extends Thread {
   private Socket conn;
   private int id;
 
@@ -29,7 +29,7 @@ public class UDserver extends Thread {
    * @param sock socket to connect to
    * @param id number of client that is connecting
    */
-  public UDserver (Socket sock, int id) {
+  public UploadDownloadServer (Socket sock, int id) {
     this.conn = sock;
     this.id = id;
   }
@@ -39,7 +39,7 @@ public class UDserver extends Thread {
    */
   public void run() {
     try {
-      InputStream inSock    = conn.getInputStream();
+      InputStream  inSock   = conn.getInputStream();
       OutputStream outSock  = conn.getOutputStream();
 
       //get the type of operation
@@ -166,7 +166,7 @@ public class UDserver extends Thread {
         System.out.println( "Echo server waiting for connects on port " + portNo );
         sock = serv.accept();
         System.out.println( "Echo server connected to client: " + id );
-        UDserver myServerThread = new UDserver(sock, id++);
+        UploadDownloadServer myServerThread = new UploadDownloadServer(sock, id++);
         myServerThread.start();
       }
     } 
