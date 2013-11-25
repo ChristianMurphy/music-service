@@ -64,7 +64,7 @@ public class UDserver extends Thread {
           System.out.println("Upload");
 
           //location to store the file
-          FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/UDserver/" + clientString + ".wav");
+          FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/server-music/" + clientString + ".wav");
 
           //stores  1024 bit section
           byte bytesReceived[] = new byte[1024];
@@ -90,7 +90,7 @@ public class UDserver extends Thread {
           System.out.println("Download");
           
           //gets the file to sent to client
-          File song   = new File(System.getProperty("user.dir") + "/UDserver/" + clientString + ".wav");
+          File song   = new File(System.getProperty("user.dir") + "/server-music/" + clientString + ".wav");
           
           //gets the length of the song file
           int length  = (int) song.length();

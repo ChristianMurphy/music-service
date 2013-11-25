@@ -334,7 +334,7 @@ public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandLi
 			os.flush();
 
 			//create filestream for file to be downloaded
-			FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/DataClient/" + filename + ".wav");
+			FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/client-music/" + filename + ".wav");
 
 			//send length of string
 			byte bytesReceived[] = new byte[4];

@@ -21,7 +21,7 @@
 
     <path id="jaxws.classpath">
         <pathelement location="${build.classes.home}"/>
-        <pathelement location="./lib/MusicLibraryGui.jar" />
+        <pathelement location="./library/MusicLibraryGui.jar" />
         <fileset dir="${jaxws.home}">
             <include name="*.jar"/>
         </fileset>
@@ -29,7 +29,7 @@
 
     <path id="compile.classpath">
             <pathelement location="${build.home}"/>
-            <pathelement path="./lib/MusicLibraryGui.jar"/>
+            <pathelement path="./library/MusicLibraryGui.jar"/>
     </path>
 
     <taskdef name="annotationProcessing"
@@ -55,7 +55,7 @@
     </target>
 
     <target name="build.ud.server" depends="prepare">
-            <javac srcdir="./src/upload-download-server"
+            <javac srcdir="./source/upload-download-server"
                     destdir="${build.home}"
                     includeantruntime="false">
                     <classpath refid="compile.classpath"/>
@@ -83,20 +83,20 @@
                 debug="true"
                 verbose="${verbose}"
                 destdir="${build.classes.home}"
-                srcdir="${basedir}/src"
+                srcdir="${basedir}/source"
                 includes="web-service-server/**"
                 sourceDestDir="${build.classes.home}"
                 procOnly="false"
                 includeantruntime="false"
-                sourcepath="${basedir}/src">
+                sourcepath="${basedir}/source">
             <classpath>
                 <path refid="jaxws.classpath"/>
-                <pathelement location="${basedir}/src/web-service-sserver"/>
+                <pathelement location="${basedir}/source/web-service-sserver"/>
             </classpath>
         </annotationProcessing>
         <!-- copy handlers descriptor file -->
         <copy todir="${build.classes.home}">
-            <fileset dir="${basedir}/src">
+            <fileset dir="${basedir}/source">
                 <include name="web-service-server/**/*.xml"/>
             </fileset>
         </copy>
@@ -155,7 +155,7 @@
     <target name="client" depends="generate.client">
         <javac
              fork="true"
-             srcdir="${basedir}/src/java-client"
+             srcdir="${basedir}/source/java-client"
              includeantruntime="false"
              destdir="${build.classes.home}">
             <classpath refid="jaxws.classpath"/>
