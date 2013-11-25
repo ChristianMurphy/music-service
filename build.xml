@@ -104,10 +104,10 @@
 
     <target name="create.war">
         <war warfile="${build.war.home}/jaxws-${ant.project.name}.war"
-             webxml="etc/web.xml">
-            <webinf dir="${basedir}/etc" includes="sun-jaxws.xml"/>
+             webxml="jax-xml/web.xml">
+            <webinf dir="${basedir}/jax-xml" includes="sun-jaxws.xml"/>
             <zipfileset
-                    dir="${basedir}/etc"
+                    dir="${basedir}/jax-xml"
                     includes="*.wsdl, *.xsd"
                     prefix="WEB-INF/wsdl"/>
             <classes dir="${build.classes.home}"/>
@@ -119,9 +119,9 @@
     </target>
 
    <target name="generate.client" depends="prepare">
-     <echo message="${basedir}/catalog"/>
+     <echo message="${basedir}/jax-xml"/>
      <wsimport
-        catalog="${basedir}/catalog/jax-ws-catalog.xml"
+        catalog="${basedir}/jax-xml/jax-ws-catalog.xml"
         xendorsed="true"
         debug="true"
         verbose="${verbose}"
@@ -131,7 +131,7 @@
         wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/Library?wsdl">
      </wsimport>
      <wsimport
-        catalog="${basedir}/catalog/jax-ws-catalog.xml"
+        catalog="${basedir}/jax-xml/jax-ws-catalog.xml"
         xendorsed="true"
         debug="true"
         verbose="${verbose}"
@@ -141,7 +141,7 @@
         wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/MusicDescription?wsdl">
      </wsimport>
      <wsimport
-        catalog="${basedir}/catalog/jax-ws-catalog.xml"
+        catalog="${basedir}/jax-xml/jax-ws-catalog.xml"
         xendorsed="true"
         debug="true"
         verbose="${verbose}"
@@ -167,7 +167,7 @@
             <classpath>
                 <path refid="jaxws.classpath"/>
                 <pathelement location="${build.classes.home}"/>
-                <pathelement location="${basedir}/etc"/>
+                <pathelement location="${basedir}/jax-xml"/>
             </classpath>
 
            <arg value="${WSHost}" />
@@ -180,7 +180,7 @@
             <classpath>
                 <path refid="jaxws.classpath"/>
                 <pathelement location="${build.classes.home}"/>
-                <pathelement location="${basedir}/etc"/>
+                <pathelement location="${basedir}/jax-xml"/>
             </classpath>
         </java>
     </target>

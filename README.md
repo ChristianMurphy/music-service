@@ -27,14 +27,14 @@ ant execute.ud.server
 Swing interface for interacting with Web Service and upload Download servers
 
 ```
-ant client
-ant execute.client
+ant client -DWSHost=127.0.0.1
+ant execute.client -DWSHost=127.0.0.1
 ```
 
 
 ###Objective C Client
 Build using Gnu Step (on linux)
-Connects exclsively to the upload download server
+Connects exclusively to the upload download server
 
 ```
 gnustepstart
