@@ -1,4 +1,4 @@
-package cst420.assign4.udserver;
+package cst420.assign4.client;
 
 import java.net.*;
 import java.io.*;

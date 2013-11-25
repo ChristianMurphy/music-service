@@ -1,9 +1,7 @@
-package cst420.assign3.client;
+package cst420.assign4.client;
 
-import cst420.assign3.client.factory.*;
-//import cst420.assign3.client.music.*;
-//import cst420.assign3.client.music.MusicDescription;
-import cst420.assign3.client.library.*;
+import cst420.assign4.client.factory.*;
+import cst420.assign4.client.library.*;
 
 import cst420.media.*;
 

@@ -62,7 +62,7 @@
     </target>
 
     <target name="execute.ud.server">
-            <java classname="cst420.assign3.udserver.UploadDownloadServer" fork="yes">
+            <java classname="cst420.assign4.udserver.UploadDownloadServer" fork="yes">
                     <classpath refid="compile.classpath"/>
                     <arg value="${portNum}"/>
             </java>
@@ -126,7 +126,7 @@
         verbose="${verbose}"
         keep="true"
         destdir="${build.classes.home}"
-        package="cst420.assign3.client.library"
+        package="cst420.assign4.client.library"
         wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/Library?wsdl">
      </wsimport>
      <wsimport
@@ -136,7 +136,7 @@
         verbose="${verbose}"
         keep="true"
         destdir="${build.classes.home}"
-        package="cst420.assign3.client.music"
+        package="cst420.assign4.client.music"
         wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/MusicDescription?wsdl">
      </wsimport>
      <wsimport
@@ -146,7 +146,7 @@
         verbose="${verbose}"
         keep="true"
         destdir="${build.classes.home}"
-        package="cst420.assign3.client.factory"
+        package="cst420.assign4.client.factory"
         wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/LibraryFactory?wsdl">
      </wsimport>
    </target>
@@ -162,7 +162,7 @@
     </target>
 
     <target name="execute.client">
-        <java fork="true" classname="cst420.assign3.client.MusicLibraryApp">
+        <java fork="true" classname="cst420.assign4.client.MusicLibraryApp">
             <classpath>
                 <path refid="jaxws.classpath"/>
                 <pathelement location="${build.classes.home}"/>

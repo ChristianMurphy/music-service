@@ -2,14 +2,14 @@
 <endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
     <endpoint
         name='Library'
-        implementation='cst420.assign3.wsserver.library.Library'
+        implementation='cst420.assign4.wsserver.library.Library'
         url-pattern='/Library'/>
     <endpoint
         name='MusicDescription'
-        implementation='cst420.assign3.wsserver.music.MusicDescription'
+        implementation='cst420.assign4.wsserver.music.MusicDescription'
         url-pattern='/MusicDescription'/>
     <endpoint
         name='LibraryFactory'
-        implementation='cst420.assign3.wsserver.factory.LibraryFactory'
+        implementation='cst420.assign4.wsserver.factory.LibraryFactory'
         url-pattern='/LibraryFactory'/>
 </endpoints>

@@ -1,6 +1,6 @@
-package cst420.assign3.wsserver.factory;
+package cst420.assign4.wsserver.factory;
 
-import cst420.assign3.wsserver.library.*;
+import cst420.assign4.wsserver.library.*;
 
 import com.sun.xml.ws.developer.StatefulWebServiceManager;
 import javax.jws.WebService;

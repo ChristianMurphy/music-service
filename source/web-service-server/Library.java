@@ -1,6 +1,6 @@
-package cst420.assign3.wsserver.library;
+package cst420.assign4.wsserver.library;
 
-import cst420.assign3.wsserver.music.*;
+import cst420.assign4.wsserver.music.*;
 
 //java stateful service handler
 import com.sun.xml.ws.developer.StatefulWebServiceManager;

@@ -1,4 +1,4 @@
-package cst420.assign3.wsserver.music;
+package cst420.assign4.wsserver.music;
 
 import com.sun.xml.ws.developer.StatefulWebServiceManager;
 import com.sun.xml.ws.developer.Stateful;
