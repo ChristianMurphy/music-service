@@ -1,6 +1,6 @@
 Music Service
 =============
-a Java server, Java Client and Objective C client able to upload and download songs.
+a Java server, Java client and Objective C client able to upload and download songs.
 
 
 ###Setup
@@ -61,3 +61,6 @@ Connects exclusively to the upload download server
 gnustepstart
 make
 ```
+###Credits
+This project is based off Assignment 4 for Distributed Stystems (CST 420) with Professor Tim Lindquist.
+All code which is base off his samples has his name in the ```@author``` tag.

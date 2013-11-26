@@ -47,20 +47,20 @@ public class UploadDownloadServer extends Thread {
       int operation = socketFunctions.receiveInteger();
       System.out.println(operation);
 
-      String filepath = socketFunctions.receiveString();
-      System.out.println(filepath);
+      String filename = socketFunctions.receiveString();
+      System.out.println(filename);
 
      switch(operation) {
         //Sent file from Client to Server
         case 2:
           System.out.println("Upload");
-          socketFunctions.receiveFile(  System.getProperty("user.dir") + "/server-music/" + filepath + ".wav");
+          socketFunctions.receiveFile(  System.getProperty("user.dir") + "/server-music/" + filename + ".wav");
           break;
 
         //Sent file from Server to Client
         case 1:
           System.out.println("Download");
-          socketFunctions.sendFile(     System.getProperty("user.dir") + "/server-music/" + filepath + ".wav");
+          socketFunctions.sendFile(     System.getProperty("user.dir") + "/server-music/" + filename + ".wav");
           break;
 
         default:
@@ -70,7 +70,6 @@ public class UploadDownloadServer extends Thread {
     //alert that client has disconnected
     System.out.println("Client " + id + " closed");
 
-    outSock.flush();
     outSock.close();
     inSock.close();
     conn.close();

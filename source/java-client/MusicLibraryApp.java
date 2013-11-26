@@ -322,11 +322,13 @@ public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandLi
 	public void downloadFile (String filename) {
 		try {
 			//connect to server
-			Socket sock = new Socket(hostname, port);
-			InputStream is = sock.getInputStream();
-			OutputStream os = sock.getOutputStream();
+			Socket 			sock	= new Socket(hostname, port);
+			InputStream		is		= sock.getInputStream();
+			OutputStream	os		= sock.getOutputStream();
 
 			SocketFunctions socketFunctions = new SocketFunctions(is, os);
+			socketFunctions.sendInteger(1);
+			socketFunctions.sendString(filename);
 			socketFunctions.receiveFile(System.getProperty("user.dir") + "/client-music/" + filename + ".wav");
 
 			os.close();
@@ -365,6 +367,8 @@ public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandLi
 
 			//send file
 			SocketFunctions socketFunctions = new SocketFunctions(is, os);
+			socketFunctions.sendInteger(2);
+			socketFunctions.sendString(filename);
 			socketFunctions.sendFile( file.getAbsolutePath() );
 
 			os.close();
