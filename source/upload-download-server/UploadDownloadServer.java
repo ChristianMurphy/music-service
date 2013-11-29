@@ -23,6 +23,7 @@ import javax.sound.sampled.*;
 public class UploadDownloadServer extends Thread {
   private Socket conn;
   private int id;
+  private final String folderpath = System.getProperty("user.dir") + "/server-music/";
 
   /**
    * This takes in a socket and a coneection id
@@ -54,18 +55,19 @@ public class UploadDownloadServer extends Thread {
          //Sent file from Server to Client
         case 1:
           System.out.println("Download");
-          socketFunctions.sendFile(     System.getProperty("user.dir") + "/server-music/" + filename + ".wav");
+          socketFunctions.sendFile( folderpath + filename + ".wav");
           break;
 
         //Sent file from Client to Server
         case 2:
           System.out.println("Upload");
-          socketFunctions.receiveFile(  System.getProperty("user.dir") + "/server-music/" + filename + ".wav");
+          socketFunctions.receiveFile(  folderpath + filename + ".wav");
           break;
 
+        //sends all of the filenames in server music directory
         case 3:
           System.out.println("List Files");
-          String[] filenames = listFiles(System.getProperty("user.dir") + "/server-music/");
+          String[] filenames = listFiles( folderpath );
           socketFunctions.sendInteger(filenames.length);
           for (String tempFilename : filenames) {
             socketFunctions.sendString(tempFilename);
@@ -90,6 +92,11 @@ public class UploadDownloadServer extends Thread {
 }
 
 
+  /**
+   * lists all the files in a folder
+   * @param path absolute path to folder to list contents of
+   * @return String[] with the name of every file in this folder
+   */
   public String[] listFiles(String path) {
     List<String> files = new ArrayList<String>();
     File folder = new File(path);
