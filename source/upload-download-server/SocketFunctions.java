@@ -119,7 +119,8 @@ public class SocketFunctions {
 	}
 
 	/**
-	 *
+	 * Recieves a file and stores it to a filepath
+	 * @param filepath location to store file
 	 */
 	public void receiveFile (String filepath) {
 		byte fileBuffer[] = new byte[byteWordSize];

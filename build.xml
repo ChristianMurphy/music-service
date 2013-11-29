@@ -18,6 +18,7 @@
     <property name="portNum" value="3030"/>
     <property name="WSHost" value="localhost"/>
 
+    <!--includes the jar files for jax-ws-->
     <path id="jaxws.classpath">
         <pathelement location="${build.classes.home}"/>
         <pathelement location="./library/MusicLibraryGui.jar" />
