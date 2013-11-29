@@ -51,21 +51,31 @@ public class UploadDownloadServer extends Thread {
       System.out.println(filename);
 
      switch(operation) {
+         //Sent file from Server to Client
+        case 1:
+          System.out.println("Download");
+          socketFunctions.sendFile(     System.getProperty("user.dir") + "/server-music/" + filename + ".wav");
+          break;
+
         //Sent file from Client to Server
         case 2:
           System.out.println("Upload");
           socketFunctions.receiveFile(  System.getProperty("user.dir") + "/server-music/" + filename + ".wav");
           break;
 
-        //Sent file from Server to Client
-        case 1:
-          System.out.println("Download");
-          socketFunctions.sendFile(     System.getProperty("user.dir") + "/server-music/" + filename + ".wav");
+        case 3:
+          System.out.println("List Files");
+          String[] filenames = listFiles(System.getProperty("user.dir") + "/server-music/");
+          socketFunctions.sendInteger(filenames.length);
+          for (String tempFilename : filenames) {
+            socketFunctions.sendString(tempFilename);
+          }
           break;
 
         default:
           break;
      }
+
 
     //alert that client has disconnected
     System.out.println("Client " + id + " closed");
@@ -73,12 +83,26 @@ public class UploadDownloadServer extends Thread {
     outSock.close();
     inSock.close();
     conn.close();
-  }
-  catch (IOException e) {
+  } catch (IOException e) {
     System.out.println("Can't get I/O for the connection.");
     e.printStackTrace();
   }
 }
+
+
+  public String[] listFiles(String path) {
+    List<String> files = new ArrayList<String>();
+    File folder = new File(path);
+    File[] folderContents = folder.listFiles();
+    
+    for (File file : folderContents) {
+      if ( file.isFile() ) {
+        files.add( file.getName() );
+      }
+    }
+
+    return ( String[] ) files.toArray();
+  }
 
   /**
    * Main method waits for clients to connect
