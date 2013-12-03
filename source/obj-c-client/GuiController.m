@@ -1,5 +1,6 @@
 #import <Cocoa/Cocoa.h>
-#import <APPKit/NSTextField.h>
+//#import <APPKit/NSTextField.h>
+#import <AppKit/AppKit.h>
 #import "GuiController.h"
 #import "AppDelegate.h"
 

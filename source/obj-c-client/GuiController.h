@@ -1,5 +1,6 @@
 #import <Cocoa/Cocoa.h>
-#import <APPKit/NSTextField.h>
+#import <AppKit/AppKit.h>
+//#import <APPKit/NSTextField.h>
 
 // to write debug messages to a file, change NO below to YES.
 // Appends messages sent to the debug: method at the end of the file
