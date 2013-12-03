@@ -18,12 +18,12 @@ import javax.sound.sampled.*;
  * example using buffered reader and printwriter.
  * @author Christian Murphy
  * @author Tim Lindquist ASU Polytechnic Department of Engineering
- * @version November 2013
+ * @version December 2013
  */
 public class UploadDownloadServer extends Thread {
-  private Socket conn;
-  private int id;
-  private final String folderpath = System.getProperty("user.dir") + "/server-music/";
+  private       Socket  conn;
+  private       int     id;
+  private final String  folderpath = System.getProperty("user.dir") + "/server-music/";
 
   /**
    * This takes in a socket and a coneection id
@@ -32,7 +32,7 @@ public class UploadDownloadServer extends Thread {
    */
   public UploadDownloadServer (Socket sock, int id) {
     this.conn = sock;
-    this.id = id;
+    this.id   = id;
   }
 
   /**

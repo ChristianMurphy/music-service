@@ -12,7 +12,7 @@ import javax.xml.ws.soap.Addressing;
  * This is essentially a structure that stores all of the information for an album
  * in java deserialized format
  * @author Christian Murphy
- * @version November 2013
+ * @version December 2013
  */
 @Stateful @WebService @Addressing
 public class MusicDescription {

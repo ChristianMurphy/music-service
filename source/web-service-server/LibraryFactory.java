@@ -15,7 +15,7 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
  * the account are remote calls which modify the remote account object.
  * @author Tim Lindquist Dept of Engineering and Computing Systems; ASU Poly
  * @author Christian Murphy
- * @version November, 2013
+ * @version December 2013
  **/
 @WebService
 public class LibraryFactory {

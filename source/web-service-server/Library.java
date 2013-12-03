@@ -29,7 +29,7 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
  * This is the library that is a collection (treemap to be exact) of Music Descriptions
  * for simple java storage
  * @author Christian Murphy
- * @version November 2013
+ * @version December 2013
  */
 @Stateful @WebService @Addressing
 public class Library {

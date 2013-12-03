@@ -10,7 +10,7 @@ import javax.sound.sampled.*;
  * This is the Threaded music decoder
  * @author Christian Murphy
  * @author Tim Lindquist (Tim.Lindquist@asu.edu), ASU Polytechnic, Engineering
- * @version November 2013
+ * @version December 2013
  */
 public class MusicPlayer extends Thread {
 	private String filename;

@@ -10,7 +10,7 @@ import javax.sound.sampled.*;
 /**
  * This abstracts the handling of sockets to send and receive data
  * @author Christian Murphy
- * @verison November 2013
+ * @verison December 2013
  */
 public class SocketFunctions {
 	private 		InputStream  inputSocket;

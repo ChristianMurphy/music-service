@@ -33,7 +33,7 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
  * music files and their descriptions.
  * @author Tim Lindquist (Tim.Lindquist@asu.edu), ASU Polytechnic, Engineering
  * @author Christian Murphy
- * @version November 2013
+ * @version December 2013
  */
 public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandListener, ActionListener, TreeSelectionListener {
 
@@ -309,7 +309,7 @@ public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandLi
 		}
 		else if (event.equals("Timer")) {
 			progressJS.setValue(progressJS.getValue() + 1);
-			timeJLBL.setText(((Integer) (progressJS.getValue() + 1)).toString());
+			timeJLBL.setText( ( (Integer) (progressJS.getValue() + 1) ).toString() );
 		}
 	}
 
@@ -393,3 +393,4 @@ public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandLi
 		}
 	}
 }
+(
