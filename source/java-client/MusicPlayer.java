@@ -29,7 +29,7 @@ public class MusicPlayer extends Thread {
 		SourceDataLine sourceLine;
 
 		try {
-			filename = "DataClient/NarniaTheBattleExcerpt.wav";
+			filename = "client-music/NarniaTheBattleExcerpt.wav";
 			File file = new File(filename);
 			audioStream = AudioSystem.getAudioInputStream(file);
 			audioFormat = audioStream.getFormat();

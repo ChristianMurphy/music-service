@@ -121,7 +121,6 @@ public class SocketFunctions {
 	 */
 	public void receiveFile (String filepath) {
 		byte fileBuffer[] = new byte[byteWordSize];
-		int length = receiveInteger();
 
 		try {
 			FileOutputStream fileOutput = new FileOutputStream(filepath);

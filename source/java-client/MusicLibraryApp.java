@@ -393,4 +393,3 @@ public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandLi
 		}
 	}
 }
-(
