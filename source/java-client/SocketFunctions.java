@@ -99,9 +99,6 @@ public class SocketFunctions {
 		File file   = new File(filepath);
 		byte[] fileBuffer = new byte[byteWordSize];
 
-		int length  = (int) file.length() / byteWordSize;
-		sendInteger(length);
-
 		try {
 			FileInputStream fileInput = new FileInputStream(file);
 
@@ -128,9 +125,9 @@ public class SocketFunctions {
 
 		try {
 			FileOutputStream fileOutput = new FileOutputStream(filepath);
-			for(int i = length; i > -1; i--) {
-				inputSocket.read(fileBuffer);
-				fileOutput.write(fileBuffer);
+			int size;
+			while ( (size = inputSocket.read(fileBuffer, 0, byteWordSize)) > 0) {
+				fileOutput.write(fileBuffer, 0, size);
 			}
 
 			fileOutput.flush();
