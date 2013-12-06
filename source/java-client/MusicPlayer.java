@@ -1,8 +1,6 @@
 package cst420.assign4.client;
 
 import java.io.*;
-
-
 import javax.sound.sampled.*;
 
 
@@ -13,7 +11,7 @@ import javax.sound.sampled.*;
  * @version December 2013
  */
 public class MusicPlayer extends Thread {
-	private String filename;
+	private String filename = "client-music/NarniaTheBattleExcerpt.wav";
 	private boolean play;
 	private SourceDataLine sourceLine;
 	private AudioInputStream audioStream;
@@ -29,7 +27,6 @@ public class MusicPlayer extends Thread {
 		SourceDataLine sourceLine;
 
 		try {
-			filename = "client-music/NarniaTheBattleExcerpt.wav";
 			File file = new File(filename);
 			audioStream = AudioSystem.getAudioInputStream(file);
 			audioFormat = audioStream.getFormat();
