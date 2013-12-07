@@ -55,10 +55,41 @@
     </target>
 
     <target name="build.ud.server" depends="prepare">
+        <wsimport
+            catalog="${basedir}/jax-xml/jax-ws-catalog.xml"
+            xendorsed="true"
+            debug="true"
+            verbose="${verbose}"
+            keep="true"
+            destdir="${build.classes.home}"
+            package="cst420.assign4.client.library"
+            wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/Library?wsdl">
+         </wsimport>
+         <wsimport
+            catalog="${basedir}/jax-xml/jax-ws-catalog.xml"
+            xendorsed="true"
+            debug="true"
+            verbose="${verbose}"
+            keep="true"
+            destdir="${build.classes.home}"
+            package="cst420.assign4.client.music"
+            wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/MusicDescription?wsdl">
+         </wsimport>
+         <wsimport
+            catalog="${basedir}/jax-xml/jax-ws-catalog.xml"
+            xendorsed="true"
+            debug="true"
+            verbose="${verbose}"
+            keep="true"
+            destdir="${build.classes.home}"
+            package="cst420.assign4.client.factory"
+            wsdl="http://${WSHost}:8080/jaxws-${ant.project.name}/LibraryFactory?wsdl">
+         </wsimport>
             <javac srcdir="./source/upload-download-server"
                     destdir="${build.home}"
                     includeantruntime="false">
                     <classpath refid="compile.classpath"/>
+                    <classpath refid="jaxws.classpath"/>
             </javac>
     </target>
 

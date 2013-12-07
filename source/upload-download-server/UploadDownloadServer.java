@@ -24,6 +24,7 @@ public class UploadDownloadServer extends Thread {
   private       Socket  conn;
   private       int     id;
   private final String  folderpath = System.getProperty("user.dir") + "/server-music/";
+  private       WebServiceFunctions webServiceFunctions;
 
   /**
    * This takes in a socket and a coneection id
@@ -33,6 +34,7 @@ public class UploadDownloadServer extends Thread {
   public UploadDownloadServer (Socket sock, int id) {
     this.conn = sock;
     this.id   = id;
+    webServiceFunctions = new WebServiceFunctions();
   }
 
   /**
@@ -61,13 +63,14 @@ public class UploadDownloadServer extends Thread {
         //Sent file from Client to Server
         case 2:
           System.out.println("Upload");
+          webServiceFunctions.addSong(filename, "Objective-C", "Objective-C");
           socketFunctions.receiveFile(  folderpath + filename + ".wav");
           break;
 
         //sends all of the filenames in server music directory
         case 3:
           System.out.println("List Files");
-          String[] filenames = listFiles( folderpath );
+          String[] filenames = webServiceFunctions.getMusicList();
           socketFunctions.sendInteger(filenames.length);
           for (String tempFilename : filenames) {
             socketFunctions.sendString(tempFilename);
@@ -90,26 +93,6 @@ public class UploadDownloadServer extends Thread {
     e.printStackTrace();
   }
 }
-
-
-  /**
-   * lists all the files in a folder
-   * @param path absolute path to folder to list contents of
-   * @return String[] with the name of every file in this folder
-   */
-  public String[] listFiles(String path) {
-    List<String> files = new ArrayList<String>();
-    File folder = new File(path);
-    File[] folderContents = folder.listFiles();
-    
-    for (File file : folderContents) {
-      if ( file.isFile() ) {
-        files.add( file.getName() );
-      }
-    }
-
-    return ( String[] ) files.toArray();
-  }
 
   /**
    * Main method waits for clients to connect
