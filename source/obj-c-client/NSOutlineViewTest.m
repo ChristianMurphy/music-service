@@ -14,6 +14,7 @@
 
 #import "NSOutlineViewTest.h"
 
+NSString *songtitle;
 
 @implementation NSOutlineViewTest: NSObject
 
@@ -68,75 +69,34 @@
 - (id)outlineView: (NSOutlineView *)outlineView
             child: (NSInteger)index
            ofItem: (id)item {
-   [self debug: [NSString stringWithFormat:@"child: %"PRIiPTR" ofItem: %@\n",
+  [self debug: [NSString stringWithFormat:@"child: %"PRIiPTR" ofItem: %@\n",
                           index, item]];
-   if ([item isEqual: @"Tim Lindquist Music Library"]) {
-      switch(index) {
-      case 0:
-         return @"All the Greatest Hits";
-      case 1:
-         return @"Classic and Polish Folk Music";
-      case 2:
-         return @"Singles";
-      case 3:
-         return @"Alone in Iz World";
-      default:
-         break;
-      }
-   } else if ([item isEqual: @"All the Greatest Hits"]) {
-      switch (index) {
-      case 0:
-         return @"Margaritaville";
-      case 1:
-         return @"Fins";
-      case 2:
-         return @"ComeMonday";
-      default:
-         break;
-      }
-   } else if ([item isEqual: @"Classic and Polish Folk Music"]) {
-      switch (index) {
-      case 0:
-         return @"MinuteWaltz";
-      case 1:
-         return @"RomanticPiano";
-      default:
-         break;
-      }
-   } else if ([item isEqual: @"Singles"]) {
-      switch (index) {
-      case 0:
-         return @"Dizzy";
-      default:
-         break;
-      }
-   } else if ([item isEqual: @"Alone in Iz World"]) {
-      switch (index) {
-      case 0:
-         return @"HanohanoCowboy";
-      case 1:
-         return @"TwinkelLittleStar";
-      default:
-         break;
-      }
-   } else if (item == nil && index == 0){
-      return @"Tim Lindquist Music Library";
-   }
 
-   return nil;
+  NSString *stringOne = @"one";
+  NSString *stringTwo = @"two";
+  NSString *stringThree = @"Three";
+
+  NSMutableArray *songArray = [[NSMutableArray alloc] init];
+  [songArray addObject:stringOne];
+  [songArray addObject:stringTwo];
+  [songArray addObject:stringThree];
+
+  songtitle = [songArray objectAtIndex:index];
+
+  return songtitle;
 }
 
 - (BOOL)outlineView: (NSOutlineView *)outlineView
    isItemExpandable: (id)item {
    [self debug: [NSString stringWithFormat: @"In isItemExpandable: %@\n",item]];
-
+   /*
    if ([item isEqual: @"Tim Lindquist Music Library"] ||
        [item isEqual: @"All the Greatest Hits"] ||
        [item isEqual: @"Classic and Polish Folk Music"] ||
        [item isEqual: @"Singles"] ||
        [item isEqual: @"Alone in Iz World"]) {
       return YES;
-   }
+   }*/
    return NO;
 }
 
@@ -144,80 +104,18 @@
    numberOfChildrenOfItem: (id)item {
    [self debug: [NSString stringWithFormat: @"In numberOfChildren: %@\n",item]];
    if (item == nil) {
-      return 1;
-   } else if ([item isEqual: @"Tim Lindquist Music Library"]) {
-      return 4;
-   } else if ([item isEqual: @"All the Greatest Hits"]) {
       return 3;
-   } else if ([item isEqual: @"Classic and Polish Folk Music"]) {
-      return 2;
-   } else if ([item isEqual: @"Singles"]) {
-      return 1;
-   } else if ([item isEqual: @"Alone in Iz World"]) {
-      return 1;
-   }
-   return 0;
+   } 
+   return 3;
 }
 
 - (id) outlineView: (NSOutlineView *)outlineView
        objectValueForTableColumn: (NSTableColumn *)tableColumn
        byItem: (id)item {
    NSString *value = nil;
-   //[self debug: [NSString stringWithFormat:@"value for tab col: item = %@\n",
-   //                     item]];
-   if ([item isEqual: @"Tim Lindquist Music Library"]) {
-     if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]) {
-         value = @"Tim Lindquist Music Library";
-     }
-   }else if ([item isEqual: @"All the Greatest Hits"]) {
-     if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]) {
-         value = @"All the Greatest Hits";
-     }
-   }else if ([item isEqual: @"Margaritaville"]) {
-     if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]) {
-         value = @"Margaritaville";
-     }
-   }else if ([item isEqual: @"Fins"]) {
-     if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]) {
-         value = @"Fins";
-     }
-   }else if ([item isEqual: @"ComeMonday"]) {
-     if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]) {
-         value = @"ComeMonday";
-     }
-   }else if ([item isEqual: @"Classic and Polish Folk Music"]) {
-      if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]){
-         value = @"Classic and Polish Folk Music";
-      }
-   }else if ([item isEqual: @"MinuteWaltz"]) {
-      if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]){
-         value = @"MinuteWaltz";
-      }
-   }else if ([item isEqual: @"RomanticPiano"]) {
-      if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]){
-         value = @"RomanticPiano";
-      }
-   }else if ([item isEqual: @"Singles"]) {
-      if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]){
-         value = @"Singles";
-      }
-   }else if ([item isEqual: @"Dizzy"]) {
-      if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]){
-         value = @"Dizzy";
-      }
-   }else if ([item isEqual: @"Alone in Iz World"]) {
-      if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]){
-         value = @"Alone in Iz World";
-      }
-   }else if ([item isEqual: @"HanohanoCowboy"]) {
-      if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]){
-         value = @"HanohanoCowboy";
-      }
-   }else if ([item isEqual: @"TwinkelLittleStar"]) {
-      if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]){
-         value = @"TwinkelLittleStar";
-      }
-   }
+  if([[[tableColumn headerCell] stringValue] isEqual: @"Albums and Songs"]){
+         value = item;
+  }
    return value;
 }
 
