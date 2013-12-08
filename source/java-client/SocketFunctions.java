@@ -3,6 +3,7 @@ package cst420.assign4.client;
 import java.net.*;
 import java.io.*;
 import java.util.*;
+import java.nio.*;
 import java.nio.ByteBuffer;
 import java.nio.file.*;
 import javax.sound.sampled.*;
@@ -32,6 +33,7 @@ public class SocketFunctions {
 	 * @param integer number to send
 	 */
 	public void sendInteger(int integer) {
+		integer = Integer.reverseBytes(integer);
 		byte integerBytes[] = ByteBuffer.allocate(4).putInt(integer).array();
 
 		try {
@@ -54,8 +56,7 @@ public class SocketFunctions {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return ByteBuffer.wrap(array).getInt();
+		return Integer.reverseBytes(ByteBuffer.wrap(array).getInt());
 	}
 
 	/**
@@ -65,9 +66,11 @@ public class SocketFunctions {
 	public void sendString(String string) {
 		byte stringBytes[] = string.getBytes();
 		sendInteger(stringBytes.length);
+		ByteBuffer stringByteBuffer = ByteBuffer.wrap(stringBytes);
+		stringByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
 
 		try {
-			outputSocket.write(stringBytes, 0, stringBytes.length);
+			outputSocket.write(stringByteBuffer.array());
 			outputSocket.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,7 +91,9 @@ public class SocketFunctions {
 			e.printStackTrace();
 		}
 
-		return new String(stringBytes);
+		ByteBuffer stringByteBuffer = ByteBuffer.wrap(stringBytes);
+		stringByteBuffer.order(ByteOrder.BIG_ENDIAN);
+		return new String(stringByteBuffer.array());
 	}
 
 	/**
