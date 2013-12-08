@@ -85,6 +85,7 @@
     {
         [self debug:@"read didn't find any bytes.\n"];
     }
+    fprintf(stderr, "%s\n", [aStr UTF8String]);
     return aStr;
 }
 

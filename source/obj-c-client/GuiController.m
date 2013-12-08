@@ -26,8 +26,9 @@
         // set property and increment the reference count for its object.
         updateTimer = 0;
         appDelegate = [theDelegate retain];
-        song = [[[NSString alloc] init] retain];
-        songList = [[[NSMutableArray alloc] init] retain];
+        song = [[[NSString alloc] init] autorelease];
+        songList = [[[NSMutableArray alloc] init] autorelease];
+        readAndSave = YES;
     }
     return self;
 }
@@ -166,17 +167,24 @@
 
 - (NSMutableArray *) getSongList
 {
-    sc = [[[CoreSockets alloc] initWithHost:@"localhost" port:@"3030"] retain];
+    sc = [[[CoreSockets alloc] initWithHost:@"localhost" port:@"3030"] autorelease];
     [sc sendAnInt:2];
     song = [sc receiveAString];
 
     while(![song isEqual:@"end"]) 
     {
-        if(![song isEqual:nil]) 
+      if(![song isEqual:nil]) {
+        readAndSave = YES;
+        if(readAndSave) 
         {
           [songList addObject:song];
-        }
-        song = [sc receiveAString]; 
+          readAndSave = NO;
+        } 
+      }
+      else 
+      {
+        song = [sc receiveAString];
+      }
     }
 
     return songList;

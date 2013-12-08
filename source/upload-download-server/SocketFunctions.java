@@ -32,6 +32,7 @@ public class SocketFunctions {
 	 * @param integer number to send
 	 */
 	public void sendInteger(int integer) {
+		
 		byte integerBytes[] = ByteBuffer.allocate(4).putInt(integer).array();
 
 		try {

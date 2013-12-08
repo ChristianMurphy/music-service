@@ -34,6 +34,7 @@
    NSMutableArray *songList;
    NSString *song;
    CoreSockets *sc;
+   BOOL readAndSave;
 }
 - (id) initWithDelegate: (AppDelegate*) theDelegate;
 - (void) dealloc;	// Other methods to be added here.

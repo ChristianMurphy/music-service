@@ -22,8 +22,8 @@
 {
     NSTableColumn *keyColumn;
     NSScrollView *scrollView;
-    songList = [[[NSMutableArray alloc] init] retain];
-    song = [[[NSString alloc] init] retain];
+    songList = [[[NSMutableArray alloc] init] autorelease];
+    song = [[[NSString alloc] init] autorelease];
     [songList addObjectsFromArray:theSongs];
     window = theWindow;
     [window retain];
