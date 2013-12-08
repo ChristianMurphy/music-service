@@ -16,7 +16,7 @@ import javax.sound.sampled.*;
 public class SocketFunctions {
 	private 		InputStream  inputSocket;
 	private 		OutputStream outputSocket;
-	final private	int byteWordSize = 1024;
+	final private	int byteWordSize = 16;
 
 	/**
 	 * Establishes a link to the hosts sockets
@@ -65,16 +65,16 @@ public class SocketFunctions {
 	 */
 	public void sendString(String string) {
 		byte stringBytes[] = string.getBytes();
-		sendInteger(stringBytes.length);
-		ByteBuffer stringByteBuffer = ByteBuffer.wrap(stringBytes);
-		stringByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+	    sendInteger(stringBytes.length);
+	    ByteBuffer stringByteBuffer = ByteBuffer.wrap(stringBytes);
+	    stringByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
 
-		try {
-			outputSocket.write(stringByteBuffer.array());
-			outputSocket.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    try {
+	            outputSocket.write(stringByteBuffer.array());
+	            outputSocket.flush();
+	    } catch (Exception e) {
+	            e.printStackTrace();
+	    }
 	}
 
 	/**
@@ -83,17 +83,17 @@ public class SocketFunctions {
 	 */
 	public String receiveString() {
 		int length = receiveInteger();
-		byte stringBytes[]    = new byte[length];
+	    byte stringBytes[] = new byte[length];
 
-		try {
-			inputSocket.read(stringBytes, 0, length);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    try {
+	            inputSocket.read(stringBytes, 0, length);
+	    } catch (Exception e) {
+	            e.printStackTrace();
+	    }
 
-		ByteBuffer stringByteBuffer = ByteBuffer.wrap(stringBytes);
-		stringByteBuffer.order(ByteOrder.BIG_ENDIAN);
-		return new String(stringByteBuffer.array());
+	    ByteBuffer stringByteBuffer = ByteBuffer.wrap(stringBytes);
+	    stringByteBuffer.order(ByteOrder.BIG_ENDIAN);
+	    return new String(stringByteBuffer.array());
 	}
 
 	/**
@@ -126,10 +126,10 @@ public class SocketFunctions {
 	 */
 	public void receiveFile (String filepath) {
 		byte fileBuffer[] = new byte[byteWordSize];
+		int size;
 
 		try {
 			FileOutputStream fileOutput = new FileOutputStream(filepath);
-			int size;
 			while ( (size = inputSocket.read(fileBuffer, 0, byteWordSize)) > 0) {
 				fileOutput.write(fileBuffer, 0, size);
 			}
