@@ -63,7 +63,6 @@
 {
    NSData* data = [[[NSData alloc] initWithBytes:&intToSend length:sizeof(intToSend)] 
                         autorelease];
-   printf("data is %@", data);
    [outStream write: [data bytes] maxLength:[data length]];
    [self debug:[NSString stringWithFormat:@"Sent %lu bytes to %s:%s\n",
             (unsigned long)[data length], [aHost UTF8String], [aPort UTF8String]]];

@@ -20,6 +20,7 @@
  * and Stefan Bidigaray for the use of NSSound and player app. Stefan's
  * player is released under the GNU Public License.
  * @version December 2013
+ * @author Christian Murphy
  */
 @class AppDelegate;
 // Don't implement the protocol for GNUstep where the delegate is different. 
@@ -31,7 +32,7 @@
    NSSound *sound;
    NSTimer *updateTimer;
    NSMutableArray *songList;
-   NSMutableString *song;
+   NSString *song;
    CoreSockets *sc;
 }
 - (id) initWithDelegate: (AppDelegate*) theDelegate;

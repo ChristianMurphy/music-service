@@ -18,7 +18,7 @@
 
 @implementation NSOutlineViewTest: NSObject
 
--(id) initInWindow:(NSWindow *) theWindow with:(NSMutableArray *) theSongs
+-(id) initInWindow:(NSWindow *)theWindow with:(NSMutableArray *)theSongs
 {
     NSTableColumn *keyColumn;
     NSScrollView *scrollView;
@@ -136,7 +136,7 @@
         }
     }
 
-    if ([[[tableColumn headCell] stringValue] isEqual:@"Music Library"])
+    if ([[[tableColumn headerCell] stringValue] isEqual:@"Music Library"])
     {
         value = item;
     }

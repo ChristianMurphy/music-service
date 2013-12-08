@@ -12,6 +12,7 @@
  * and Stefan Bidigaray for the use of NSSound and player app. Stefan's
  * player is released under the GNU Public License.
  * @version December 2013
+ * @author Christian Murphy
  */
 int main(int argc, char *argv[]) {
     // create an autorelease pool

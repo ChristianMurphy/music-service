@@ -2,8 +2,6 @@
 #import <AppKit/AppKit.h>
 #import "GuiController.h"
 #import "AppDelegate.h"
-#import "CoreSockets.m"
-#import "CoreSockets.h"
 
 
 /**
@@ -16,7 +14,8 @@
  * with credits to Casper B Hansen for structure of nibless of apps, and
  * and Stefan Bidigaray for the use of NSSound and player app. Stefan's
  * player is released under the GNU Public License.
- * @version November 2012
+ * @version December 2013
+ * @author Christian Murphy
  */
 @implementation GuiController
 - (id) initWithDelegate:(AppDelegate *) theDelegate
@@ -27,7 +26,7 @@
         // set property and increment the reference count for its object.
         updateTimer = 0;
         appDelegate = [theDelegate retain];
-        song = [[[NSMutableString alloc] init] retain];
+        song = [[[NSString alloc] init] retain];
         songList = [[[NSMutableArray alloc] init] retain];
     }
     return self;
@@ -169,11 +168,10 @@
 {
     sc = [[[CoreSockets alloc] initWithHost:@"localhost" port:@"3030"] retain];
     [sc sendAnInt:2];
-    [song setString:[sc receiveAString]];
+    song = [sc receiveAString];
 
-    while(![song isEqualToString:"end"]) 
+    while(![song isEqual:@"end"]) 
     {
-        printf("%@", song);
         if(![song isEqual:nil]) 
         {
           [songList addObject:song];

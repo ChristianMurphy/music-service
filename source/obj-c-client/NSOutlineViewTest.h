@@ -18,7 +18,8 @@
  * with credits to Casper B Hansen for structure of nibless of apps, and
  * and Stefan Bidigaray for the use of NSSound and player app. Stefan's
  * player is released under the GNU Public License.
- * @version November 2013
+ * @version December 2013
+ * @author Christian Murphy
  */
 @interface NSOutlineViewTest: NSObject {
    NSWindow *window;
@@ -27,6 +28,6 @@
    NSString *song;
 }
 
--(id) initInWindow: (NSWindow*) window with:(NSMutableArray *) theSongs;
+-(id) initInWindow: (NSWindow*) window with:(NSMutableArray *)theSongs;
 -(void) debug: (NSString*) aMessage;
 @end
