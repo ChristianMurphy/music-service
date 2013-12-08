@@ -71,7 +71,7 @@
 - (NSString *) receiveAString
 {
     NSString *aStr = nil;
-    uint8_t buffer[4096];
+    uint8_t buffer[22];
     int n = [inStream read:buffer maxLength:sizeof(buffer)];
     if (n > 0)
     {
@@ -112,45 +112,45 @@
     [outStream close];
 }
 
-- (void) stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent
-{
-    [self debug:[NSString stringWithFormat:@"stream event %lu\n", streamEvent]];
-    switch (streamEvent)
-    {
-    case NSStreamEventOpenCompleted:
-        [self debug:@"stream opened\n"];
-        break;
-    case NSStreamEventHasBytesAvailable:
-        [self debug:@"stream bytes available\n"];
-        if (theStream == inStream)
-        {
-            uint8_t buf[4096];
-            int len;
-            while ([inStream hasBytesAvailable])
-            {
-                len = [inStream read:buf maxLength:sizeof(buf)];
-                if (len > 0)
-                {
-                    [self debug:[NSString stringWithFormat:@"read %d bytes\n", len]];
-                    //NSString * found = [[NSString alloc] initWithBytes:buf
-                    //                   length:len encoding:NSASCIIStringEncoding];
-                }
-            }
-        }
-        break;
-    case NSStreamEventErrorOccurred:
-        [self debug:@"stream error occurred\n"];
-        break;
-    case NSStreamEventEndEncountered:
-        [self debug:@"stream end encountered; closing\n"];
-        [theStream close];
-        [theStream removeFromRunLoop:[NSRunLoop currentRunLoop]
-         forMode:NSDefaultRunLoopMode];
-        break;
-    default:
-        [self debug:@"unknown stream event\n"];
-    }
-}
+// - (void) stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent
+// {
+//     [self debug:[NSString stringWithFormat:@"stream event %lu\n", streamEvent]];
+//     switch (streamEvent)
+//     {
+//     case NSStreamEventOpenCompleted:
+//         [self debug:@"stream opened\n"];
+//         break;
+//     case NSStreamEventHasBytesAvailable:
+//         [self debug:@"stream bytes available\n"];
+//         if (theStream == inStream)
+//         {
+//             uint8_t buf[4096];
+//             int len;
+//             while ([inStream hasBytesAvailable])
+//             {
+//                 len = [inStream read:buf maxLength:sizeof(buf)];
+//                 if (len > 0)
+//                 {
+//                     [self debug:[NSString stringWithFormat:@"read %d bytes\n", len]];
+//                     //NSString * found = [[NSString alloc] initWithBytes:buf
+//                     //                   length:len encoding:NSASCIIStringEncoding];
+//                 }
+//             }
+//         }
+//         break;
+//     case NSStreamEventErrorOccurred:
+//         [self debug:@"stream error occurred\n"];
+//         break;
+//     case NSStreamEventEndEncountered:
+//         [self debug:@"stream end encountered; closing\n"];
+//         [theStream close];
+//         [theStream removeFromRunLoop:[NSRunLoop currentRunLoop]
+//          forMode:NSDefaultRunLoopMode];
+//         break;
+//     default:
+//         [self debug:@"unknown stream event\n"];
+//     }
+// }
 
 - (void)dealloc
 {

@@ -25,6 +25,7 @@
     songList = [[[NSMutableArray alloc] init] autorelease];
     song = [[[NSString alloc] init] autorelease];
     [songList addObjectsFromArray:theSongs];
+    NSLog(@"%@", theSongs);
     window = theWindow;
     [window retain];
     keyColumn = [[NSTableColumn alloc] initWithIdentifier:@"Albums and Songs"];
@@ -74,6 +75,7 @@
     child:(NSInteger)index
     ofItem:(id)item
 {
+
     [self debug:[NSString stringWithFormat:@"child: %"PRIiPTR" ofItem: %@\n",
                  index, item]];
     //This is going to have all the songs put into it
@@ -115,6 +117,7 @@
     else if ([item isEqual:@"Music Library"])
     {
         //return array.length
+        NSLog(@"%@", songList);
         return [songList count];
     }
     return 0;

@@ -173,7 +173,7 @@
 
     while(![song isEqual:@"end"]) 
     {
-      if(![song isEqual:nil]) {
+      if(song != nil) {
         readAndSave = YES;
         if(readAndSave) 
         {
@@ -181,12 +181,9 @@
           readAndSave = NO;
         } 
       }
-      else 
-      {
-        song = [sc receiveAString];
-      }
+      song = [sc receiveAString];
     }
-
+    NSLog(@"%@", songList);
     return songList;
 }
 

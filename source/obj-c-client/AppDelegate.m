@@ -77,6 +77,7 @@
                                      at:NSMakeRect(445,60,80,20)];
       [timeLab retain];
       [songList addObjectsFromArray:[guiController getSongList]];
+      NSLog(@"%@", songList);
       outlineview = [[[NSOutlineViewTest alloc] initInWindow: window with:songList] retain];
       [self debug:[NSString stringWithFormat:@"AppDelegate init complete\n"]];
 
