@@ -1,6 +1,5 @@
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>
-//#import <APPKit/NSTextField.h>
 #import "NSOutlineViewTest.h"
 
 // to write debug messages to a file, change NO below to YES.
@@ -8,7 +7,7 @@
 // .../MusicPlayer/MusicPlayer.app/DebugMessageLog.txt (on Mac).
 // on GNUstep, you must manually copy DebugMessageLog.txt into the
 // MusicPlayerGNUstep.app directory before executing with DEBUBON YES
-#define DEBUGON NO
+#define DEBUGON YES
 
 /**
  * Purpose: demonstrate music player GUI App on Cocoa without using the
@@ -20,7 +19,8 @@
  * with credits to Casper B Hansen for structure of nibless of apps, and
  * and Stefan Bidigaray for the use of NSSound and player app. Stefan's
  * player is released under the GNU Public License.
- * @version November 2013
+ * @version December 2013
+ * @author Christian Murphy
  */
 @class GuiController;
 // Don't implement the protocol for GNUstep where the delegate is different. 
@@ -37,6 +37,7 @@
    //the label to the right of the slider showing play progress
    NSTextField * timeLab;
    GuiController * guiController;
+   NSMutableArray *songList;
 }
 @property (readwrite, retain, nonatomic) NSSlider * slider;
 @property (readwrite, retain, nonatomic) NSTextField * timeLab;

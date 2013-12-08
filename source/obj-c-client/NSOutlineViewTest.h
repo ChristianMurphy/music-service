@@ -1,12 +1,11 @@
 #include <Foundation/Foundation.h>
 #include <AppKit/AppKit.h>
-
 // to write debug messages to a file, change NO below to YES.
 // Appends messages sent to the debug: method at the end of the file
 // .../MusicPlayer/MusicPlayer.app/DebugMessageLog.txt (on Mac).
 // on GNUstep, you must manually copy DebugMessageLog.txt into the
 // MusicPlayerGNUstep.app directory before executing with DEBUBON YES
-#define DEBUGON NO
+#define DEBUGON YES
 
 /**
  * Purpose: demonstrate music player GUI App on Cocoa without using the
@@ -24,7 +23,10 @@
 @interface NSOutlineViewTest: NSObject {
    NSWindow *window;
    NSOutlineView *outlineView;
+   NSMutableArray *songList;
+   NSString *song;
 }
--(id) initInWindow: (NSWindow*) window;
+
+-(id) initInWindow: (NSWindow*) window with:(NSMutableArray *) theSongs;
 -(void) debug: (NSString*) aMessage;
 @end

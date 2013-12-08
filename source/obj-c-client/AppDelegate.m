@@ -13,7 +13,8 @@
  * with credits to Casper B Hansen for structure of nibless of apps, and
  * and Stefan Bidigaray for the use of NSSound and player app. Stefan's
  * player is released under the GNU Public License.
- * @version November 2013
+ * @version December 2013
+ * @author Christian Murphy
  */
 @implementation AppDelegate
 // getters and setters to allow controller access to these controls.
@@ -39,10 +40,10 @@
       // allocate view
       view = [[NSView alloc] initWithFrame:contentSize];
       [window setContentView:view];
-
+      //songList = [[NSMutableArray alloc] init];
       //Add the buttons across the bottom of the view.
       // place the button at 20,20 (x,y) in window with width 75 and height 30
-      [self addButtonWithTitle:@"Exit"
+      [self addButtonWithTitle:@"Exit" //this.addButtonWithTitle(@"Exit", guiController, endIt, makeRect)
                         target:guiController
                         action:@selector(endIt)
                           rect:NSMakeRect(20,20,75,30)];
@@ -75,7 +76,8 @@
       timeLab = [self addLabelWithTitle:@"  0 : 0 "
                                      at:NSMakeRect(445,60,80,20)];
       [timeLab retain];
-      outlineview = [[[NSOutlineViewTest alloc] initInWindow: window] retain];
+      [songList addObjectsFromArray:[guiController getSongList]];
+      outlineview = [[[NSOutlineViewTest alloc] initInWindow: window with:songList] retain];
       [self debug:[NSString stringWithFormat:@"AppDelegate init complete\n"]];
 
    }
