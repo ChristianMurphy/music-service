@@ -96,6 +96,7 @@
     <target name="execute.ud.server">
             <java classname="cst420.assign4.udserver.UploadDownloadServer" fork="yes">
                     <classpath refid="compile.classpath"/>
+                    <classpath refid="jaxws.classpath"/>
                     <arg value="${portNum}"/>
             </java>
     </target>

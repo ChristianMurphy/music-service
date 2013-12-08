@@ -270,6 +270,7 @@ public class MusicLibraryApp extends MusicLibraryGui implements TreeWillExpandLi
 				
 			//start music
 			musicPlayerThread = new MusicPlayer();
+			musicPlayerThread.setFilename(node.getUserObject().toString());
 			musicPlayerThread.start();
 			try {
 				musicPlayerThread.sleep(1000);

@@ -88,7 +88,7 @@ public class MusicPlayer extends Thread {
 	 * @deprecated as of September 2013 it was requested that filename was hard coded
 	 */
 	public void setFilename(String filename) {
-		this.filename = filename;
+		this.filename = "client-music/" + filename + ".wav";
 	}
 
 	/**
